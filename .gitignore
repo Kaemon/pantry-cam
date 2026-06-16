@@ -3,9 +3,12 @@ __pycache__/
 *.pyc
 
 # Face enrollment — private biometric data
-enrollment_previews/
-photos/
-crops/
+enrollment_previews/*
+!enrollment_previews/.gitkeep
+photos/*
+!photos/.gitkeep
+crops/*
+!crops/.gitkeep
 
 # Logs — private (real people's names)
 pantry_log*.csv
