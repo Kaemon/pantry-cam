@@ -1,0 +1,30 @@
+venv/
+__pycache__/
+*.pyc
+
+# Face enrollment — private biometric data
+enrollment_previews/
+photos/
+crops/
+
+# Logs — private (real people's names)
+pantry_log*.csv
+coffee_log*.csv
+
+# Training data & model weights
+training_images/
+dataset/
+dataset_split/
+*.pt
+
+# Generated output
+*.png
+*.html
+*.npy
+
+# Config files with machine-specific paths
+pantry_roi.json
+coffee_roi.json
+botsort_pantry.yaml
+cup_dataset.yaml
+debug_*.jpg
