@@ -52,11 +52,35 @@ pip install ultralytics insightface onnxruntime opencv-python plotly matplotlib
 
 ### 1. Enroll faces
 
-Run the main script and press **E** to enroll a person:
+There are three ways to enroll people:
+
+**Option A — Live enrollment (quickest for one person)**
+
+Run the main script, press **E**, point the camera at the person's face, and type their name. The system captures multiple embeddings automatically.
+
+**Option B — Bulk enroll from photos**
+
+Put photos in `photos/<name>/` (one subfolder per person, any number of images), then run:
 ```bash
-python pantry_cam.py
+python enroll_photos.py
 ```
-Point the camera at each person's face and type their name. The more photos from different angles the better. Embeddings are saved to `enrollment_previews/`.
+InsightFace detects the largest face in each photo, extracts the embedding, and saves it to `enrollment_previews/`. Source photos are deleted after enrollment.
+
+**Option C — Auto-enroll from crops (best for growing the dataset over time)**
+
+While the system runs, it automatically saves face crops of everyone it tracks to `crops/person_XXX/`. Once you have enough footage:
+
+```bash
+python sort_crops.py
+```
+
+This uses your existing enrollment data to identify each crop folder by majority vote, then copies the images to `photos/<name>/`. Ambiguous or unknown people go to `photos/unknown/`. Review the unknowns manually, rename the folder to the correct name, then enroll:
+
+```bash
+python enroll_photos.py
+```
+
+This is the most powerful workflow — the system continuously captures new angles and lighting conditions, and you can batch-enroll them to keep improving recognition accuracy.
 
 ### 2. Draw the pantry zone ROI
 
